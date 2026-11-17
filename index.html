@@ -1,0 +1,831 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Ментор — ИИ-репетитор «на полях» вашей тетради: пошаговые разборы по математике, физике, химии и информатике. Подготовка к ЕГЭ и ОГЭ для 7–11 класса.">
+<title>Ментор — ИИ-репетитор на полях вашей тетради</title>
+<style>
+/* ---------- Golos Text ---------- */
+@font-face{font-family:'Golos Text';font-style:normal;font-weight:400;font-display:swap;src:url(./fonts/f0-q5uCsoe9Lv5t7Meb31EcEx58hLxR.woff2) format('woff2');unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}
+@font-face{font-family:'Golos Text';font-style:normal;font-weight:400;font-display:swap;src:url(./fonts/f1-q5uCsoe9Lv5t7Meb31EcExd8hLxR.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Golos Text';font-style:normal;font-weight:400;font-display:swap;src:url(./fonts/f3-q5uCsoe9Lv5t7Meb31EcExN8hA.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Golos Text';font-style:normal;font-weight:500;font-display:swap;src:url(./fonts/f1-q5uCsoe9Lv5t7Meb31EcExd8hLxR.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Golos Text';font-style:normal;font-weight:500;font-display:swap;src:url(./fonts/f3-q5uCsoe9Lv5t7Meb31EcExN8hA.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Golos Text';font-style:normal;font-weight:600;font-display:swap;src:url(./fonts/f1-q5uCsoe9Lv5t7Meb31EcExd8hLxR.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Golos Text';font-style:normal;font-weight:600;font-display:swap;src:url(./fonts/f3-q5uCsoe9Lv5t7Meb31EcExN8hA.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Golos Text';font-style:normal;font-weight:700;font-display:swap;src:url(./fonts/f1-q5uCsoe9Lv5t7Meb31EcExd8hLxR.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Golos Text';font-style:normal;font-weight:700;font-display:swap;src:url(./fonts/f3-q5uCsoe9Lv5t7Meb31EcExN8hA.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+/* ---------- Literata (variable 500–700) ---------- */
+@font-face{font-family:'Literata';font-style:normal;font-weight:500 700;font-display:swap;src:url(./fonts/Literata-500-cyrillic.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Literata';font-style:normal;font-weight:500 700;font-display:swap;src:url(./fonts/Literata-500-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Literata';font-style:italic;font-weight:500;font-display:swap;src:url(./fonts/Literata-500-italic-cyrillic.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+/* ---------- Caveat (variable 500–700) ---------- */
+@font-face{font-family:'Caveat';font-style:normal;font-weight:500 700;font-display:swap;src:url(./fonts/Caveat-500-cyrillic.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Caveat';font-style:normal;font-weight:500 700;font-display:swap;src:url(./fonts/Caveat-500-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
+<style>
+/* ---------- токены бренда «На полях» ---------- */
+:root{
+  --paper:#EEF3F4;        /* бумага */
+  --sheet:#FAFCFC;        /* лист */
+  --grid:#D9E4E8;         /* клетка */
+  --ink:#1F3A5F;          /* чернила */
+  --ink-2:#4A6280;        /* чернила светлые */
+  --margin:#C9777A;       /* поля: только акцент */
+  --sage:#2E7D5B;         /* шалфей яркий: кнопки */
+  --sage-2:#35916B;       /* шалфей светлее: наведение */
+  --sage-soft:#E2EDE8;
+  --line:color-mix(in srgb, var(--grid) 80%, var(--ink));
+  --shadow-sheet:6px 6px 0 color-mix(in srgb, var(--ink) 10%, transparent);
+  --font-body:"Golos Text", system-ui, sans-serif;
+  --font-head:"Literata", Georgia, serif;
+  --font-hand:"Caveat", cursive;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font:18px/1.6 var(--font-body);
+  color:var(--ink);
+  background:
+    linear-gradient(color-mix(in srgb, var(--grid) 55%, transparent) 1px, transparent 1px) 0 0/100% 28px,
+    linear-gradient(90deg, color-mix(in srgb, var(--grid) 55%, transparent) 1px, transparent 1px) 0 0/28px 100%,
+    var(--paper);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2.5px solid var(--margin);outline-offset:2px;border-radius:4px}
+.container{max-width:1120px;margin:0 auto;padding:0 24px}
+section{scroll-margin-top:96px}
+h1,h2,h3{font-family:var(--font-head);font-weight:600;line-height:1.2;letter-spacing:-0.01em;text-wrap:balance}
+h2{font-size:clamp(1.6rem,3vw,2.4rem)}
+.lead{color:var(--ink-2);font-size:20px;max-width:52ch}
+.hand{font-family:var(--font-hand);color:var(--margin);font-weight:600}
+
+/* ---------- линия полей с заметками (только широкие экраны) ---------- */
+.margin-rail{position:absolute;top:0;bottom:0;left:calc(50% - 672px);width:0;border-left:2px solid color-mix(in srgb, var(--margin) 55%, transparent);pointer-events:none}
+.margin-note{position:absolute;left:-14px;width:130px;font-family:var(--font-hand);font-weight:600;font-size:22px;line-height:1.15;color:var(--margin);transform:rotate(-3deg)}
+.margin-note em{display:block;font-style:normal;transform:rotate(2deg)}
+@media (max-width:1360px){.margin-rail{display:none}}
+
+/* ---------- появление: один момент при загрузке, не на каждой секции ---------- */
+.js .hero-in>*{opacity:0;transform:translateY(12px);animation:rise .55s ease-out forwards}
+.js .hero-in>*:nth-child(2){animation-delay:.12s}
+.js .hero-in>*:nth-child(3){animation-delay:.24s}
+.js .demo-card{opacity:0;transform:rotate(-1.2deg) translateY(16px);animation:rise-card .65s .3s ease-out forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+@keyframes rise-card{to{opacity:1;transform:rotate(-1.2deg) translateY(0)}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js .hero-in>*,.js .demo-card{opacity:1;transform:rotate(-1.2deg)}
+}
+
+/* ---------- шапка ---------- */
+.header{position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--paper) 88%, transparent);backdrop-filter:blur(10px);border-bottom:1.5px solid var(--ink)}
+.header-in{display:flex;align-items:center;gap:26px;height:80px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-mark{width:54px;height:54px;flex:none;filter:drop-shadow(2px 2px 0 color-mix(in srgb, var(--ink) 12%, transparent))}
+.logo-name{font-family:var(--font-head);font-weight:700;font-size:1.5rem;letter-spacing:.005em;line-height:1;position:relative}
+.logo-tag{position:absolute;left:2px;top:calc(100% + 1px);font-family:var(--font-hand);font-weight:600;font-size:15px;color:var(--margin);transform:rotate(-2.5deg);white-space:nowrap}
+.nav{display:flex;gap:4px;margin-left:auto}
+.nav a{padding:9px 14px;border-radius:999px;font-weight:500;font-size:.98rem;color:var(--ink-2);transition:background .18s ease-out,color .18s ease-out}
+.nav a:hover{background:var(--sheet);color:var(--ink);box-shadow:inset 0 0 0 1px var(--grid)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;border-radius:999px;padding:13px 24px;transition:transform .18s ease-out,background .18s ease-out,box-shadow .18s ease-out;white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--sage);color:#fff;box-shadow:3px 3px 0 color-mix(in srgb, var(--ink) 22%, transparent)}
+.btn-primary:hover{background:var(--sage-2)}
+.btn-ghost{background:var(--sheet);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn-ghost:hover{box-shadow:inset 0 0 0 1.5px var(--margin);color:var(--margin)}
+.btn-sm{padding:10px 20px;font-size:.95rem}
+.burger{display:none;width:44px;height:44px;border-radius:12px;align-items:center;justify-content:center;flex-direction:column;gap:5px}
+.burger span{display:block;width:20px;height:2px;background:var(--ink);border-radius:2px;transition:transform .2s ease-out,opacity .2s ease-out}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{position:fixed;inset:80px 0 auto 0;z-index:49;background:var(--sheet);border-bottom:1.5px solid var(--ink);box-shadow:var(--shadow-sheet);padding:12px 24px 20px;display:none;flex-direction:column;gap:4px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{padding:13px 10px;border-radius:12px;font-weight:600;font-size:1.05rem}
+.mobile-menu a:hover{background:var(--paper)}
+.menu-backdrop{position:fixed;inset:0;z-index:48;background:color-mix(in srgb, var(--ink) 30%, transparent);display:none}
+.menu-backdrop.show{display:block}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:clamp(44px,6vw,88px) 0 clamp(52px,6vw,96px)}
+.hero-grid{position:relative;display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(32px,5vw,64px);align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.95rem;font-weight:600;color:var(--ink-2);background:var(--sheet);border:1.5px dashed var(--margin);padding:8px 16px;border-radius:999px}
+.eyebrow i{width:9px;height:9px;border-radius:50%;background:var(--sage);flex:none}
+.hero h1{font-size:clamp(2rem,4.4vw,3.4rem);font-weight:700;margin:24px 0 20px}
+.hero h1 .u{position:relative;white-space:nowrap}
+.hero h1 .u svg{position:absolute;left:-2%;bottom:-.24em;width:104%;height:.4em;overflow:visible}
+.hero h1 .u path{stroke:var(--margin);stroke-width:5;fill:none;stroke-linecap:round}
+.hero .lead{margin-bottom:30px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:28px}
+.chips{display:flex;gap:10px;flex-wrap:wrap}
+.chip{font-size:.9rem;font-weight:600;color:var(--ink-2);background:var(--sheet);border:1.5px dashed var(--grid);border-radius:999px;padding:7px 14px}
+
+/* ---------- демо-чат: листок на полях ---------- */
+.demo-card{position:relative;background:var(--sheet);border:1.5px solid var(--ink);border-radius:16px;box-shadow:var(--shadow-sheet);transition:transform .3s ease-out}
+.demo-card:hover{transform:rotate(0deg)}
+.demo-card::after{content:"";position:absolute;top:-12px;left:50%;transform:translateX(-50%) rotate(-3deg);width:96px;height:24px;background:color-mix(in srgb, var(--margin) 30%, transparent);border-radius:2px;pointer-events:none}
+.demo-head{display:flex;align-items:center;gap:12px;padding:18px 22px;border-bottom:1.5px dashed var(--grid)}
+.demo-ava{width:42px;height:42px;border-radius:10px;background:var(--paper);border:1.5px solid var(--ink);display:grid;place-items:center;flex:none}
+.demo-ava svg{width:26px;height:26px}
+.demo-head strong{display:block;font-family:var(--font-head);font-size:1.05rem}
+.demo-head small{color:var(--ink-2);font-size:.82rem;display:flex;align-items:center;gap:6px}
+.demo-head small i{width:7px;height:7px;border-radius:50%;background:var(--sage);display:inline-block}
+.demo-body{height:300px;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth;background:
+  linear-gradient(color-mix(in srgb, var(--grid) 45%, transparent) 1px, transparent 1px) 0 0/100% 26px}
+.msg{max-width:90%;padding:11px 15px;border-radius:14px;font-size:.95rem;line-height:1.55}
+.msg p+p{margin-top:8px}
+.msg-tutor{background:var(--paper);border:1.5px solid var(--grid);border-left:4px solid var(--margin);border-top-left-radius:4px;align-self:flex-start}
+.msg-user{background:var(--ink);color:var(--paper);border-top-right-radius:4px;align-self:flex-end}
+.msg-steps{list-style:none;margin-top:8px;display:grid;gap:7px;counter-reset:st}
+.msg-steps li{counter-increment:st;position:relative;padding-left:30px;font-family:var(--font-hand);font-weight:500;font-size:1.22rem;line-height:1.25;color:var(--ink)}
+.msg-steps li::before{content:counter(st);position:absolute;left:0;top:3px;width:20px;height:20px;border-radius:6px;background:var(--sheet);border:1.5px solid var(--margin);font-family:var(--font-body);font-size:.72rem;font-weight:700;display:grid;place-items:center;color:var(--margin)}
+.msg-steps li{opacity:0;transform:translateY(6px)}
+.js .msg-steps li{transition:opacity .25s ease-out,transform .25s ease-out}
+.msg-steps li.show{opacity:1;transform:none}
+.typing{display:inline-flex;gap:5px;padding:14px 16px}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--ink-2);animation:tp 1s ease-in-out infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes tp{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-4px);opacity:1}}
+.demo-suggest{display:flex;gap:8px;flex-wrap:wrap;padding:12px 20px 4px}
+.suggest{font-size:.85rem;font-weight:500;color:var(--ink-2);border:1.5px dashed var(--grid);background:var(--sheet);border-radius:999px;padding:7px 12px;transition:background .15s ease-out,border-color .15s ease-out,color .15s ease-out}
+.suggest:hover{border-color:var(--margin);color:var(--margin)}
+.demo-input{display:flex;gap:10px;padding:14px 20px 18px}
+.demo-input input{flex:1;min-width:0;height:48px;border:1.5px solid var(--line);border-radius:999px;padding:0 18px;font:inherit;font-size:.95rem;background:var(--paper);color:var(--ink)}
+.demo-input input::placeholder{color:var(--ink-2);opacity:.7}
+.demo-input input:focus{outline:none;border-color:var(--sage);box-shadow:0 0 0 3px color-mix(in srgb, var(--sage) 25%, transparent)}
+.demo-input input.shake{animation:shk .3s ease-out;border-color:var(--margin)}
+@keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.demo-input button{width:48px;height:48px;border-radius:50%;background:var(--sage);display:grid;place-items:center;flex:none;transition:background .15s ease-out,transform .15s ease-out}
+.demo-input button:hover{background:var(--sage-2)}
+.demo-input button:active{transform:scale(.93)}
+.demo-input button svg{width:20px;height:20px}
+.demo-hint{padding:0 20px 16px;font-size:.85rem;color:var(--margin);min-height:1.2em;font-family:var(--font-hand);font-size:1.1rem}
+
+/* наклейка с совёнком на чате */
+.sticker{position:absolute;top:-46px;right:-18px;width:128px;transform:rotate(6deg);z-index:2}
+.sticker figure{background:var(--sheet);border:1.5px solid var(--ink);border-radius:10px;padding:7px 7px 4px;box-shadow:4px 4px 0 color-mix(in srgb, var(--ink) 14%, transparent)}
+.sticker img{border-radius:6px}
+.sticker figcaption{font-family:var(--font-hand);font-weight:600;font-size:19px;color:var(--margin);text-align:center;line-height:1.1;padding:2px 0 3px}
+@media (max-width:600px){.sticker{width:96px;top:-38px;right:-6px}}
+
+/* ---------- секции ---------- */
+.section{padding:clamp(52px,7vw,100px) 0;position:relative}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:clamp(28px,4vw,48px);flex-wrap:wrap}
+.section-head p{margin-top:12px}
+
+/* два настроения */
+.personas-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,44px)}
+.persona{background:var(--sheet);border:1.5px solid var(--ink);border-radius:16px;padding:20px 20px 26px;box-shadow:var(--shadow-sheet);position:relative}
+.persona:nth-child(1){transform:rotate(-1.2deg)}
+.persona:nth-child(2){transform:rotate(1.2deg)}
+.persona::before{content:"";position:absolute;top:-11px;left:50%;transform:translateX(-50%) rotate(-2deg);width:88px;height:22px;background:color-mix(in srgb, var(--sage) 28%, transparent);border-radius:2px}
+.persona:nth-child(2)::before{background:color-mix(in srgb, var(--margin) 28%, transparent);transform:translateX(-50%) rotate(2deg)}
+.persona img{width:100%;border-radius:10px;border:1px solid var(--grid)}
+.persona h3{font-size:1.35rem;margin:18px 0 8px}
+.persona p{color:var(--ink-2);font-size:17px;max-width:44ch}
+.persona .hand{display:block;margin-top:12px;font-size:1.35rem;transform:rotate(-1.5deg)}
+
+/* макеты экранов: телефоны с Совёнком */
+.phones{display:flex;justify-content:center;align-items:stretch;gap:16px;padding:10px 2px 6px}
+.phone{width:31%;max-width:134px;background:var(--ink);border-radius:20px;padding:9px 7px 12px;box-shadow:3px 4px 0 color-mix(in srgb, var(--ink) 15%, transparent);display:flex;flex-direction:column}
+.phone:nth-child(1){transform:rotate(-3deg)}
+.phone:nth-child(3){transform:rotate(3deg)}
+.ph-camera{display:block;width:26px;height:4px;border-radius:999px;background:color-mix(in srgb, var(--paper) 38%, var(--ink));margin:0 auto 8px;flex:none}
+.phone-screen{flex:1;min-height:235px;border-radius:12px;padding:12px 9px 13px;display:flex;flex-direction:column;justify-content:flex-end;background-image:linear-gradient(180deg,rgba(20,8,3,0) 40%,rgba(18,7,2,.72) 60%,rgba(14,5,1,.95) 100%),url("./img/sova-owl.png"),linear-gradient(160deg,#C96A24,#8A4114 55%,#5E2B0C);background-repeat:no-repeat,no-repeat,no-repeat;background-size:100% 100%,auto 44%,100% 100%;background-position:0 0,center 8%,0 0}
+.phone-screen .scr-tag{display:inline-block;align-self:flex-start;font-size:.6rem;font-weight:700;color:#fff;border:1.2px dashed rgba(255,255,255,.8);border-radius:999px;padding:2px 8px;margin-bottom:8px;background:rgba(0,0,0,.28)}
+.phone-screen .scr-main{font-weight:700;font-size:.8rem;line-height:1.28;margin-bottom:5px;color:#fff}
+.phone-screen .scr-sub{font-size:.64rem;color:rgba(255,255,255,.88);line-height:1.32;margin-bottom:10px}
+.phone-screen .scr-hand{font-family:var(--font-hand);font-weight:600;font-size:.95rem;color:#FFC98F;transform:rotate(-2deg);line-height:1.1}
+/* макет ноутбука с Роботом */
+.laptop{position:relative}
+.laptop>img{display:block;width:100%;border-radius:10px;border:1px solid var(--grid)}
+.laptop{container-type:inline-size}
+.laptop-word{position:absolute;left:14.2%;top:35.3%;width:29.7%;height:29.8%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--font-head);font-weight:800;font-size:5cqw;letter-spacing:.04em;line-height:1;white-space:nowrap;text-shadow:0 1px 6px rgba(0,0,0,.4)}
+.exam-plate{background:linear-gradient(155deg,#25416E,var(--ink) 72%);border-radius:10px;color:#fff;text-align:left;padding:16px 18px;margin-top:14px;box-shadow:var(--shadow-sheet)}
+.exam-plate .scr-title{font-family:var(--font-head);font-weight:700;font-size:1.08rem;color:#fff;margin:0 0 12px;padding:0 0 9px;border-bottom:2px solid color-mix(in srgb, var(--margin) 70%, transparent)}
+.scr-conds{list-style:none;display:grid;gap:9px;margin:0 0 15px}
+.scr-conds li{font-size:.85rem;line-height:1.35;padding-left:16px;position:relative;color:rgba(255,255,255,.88);text-align:left}
+.scr-conds li::before{content:"";position:absolute;left:0;top:6px;width:7px;height:7px;border-radius:2px;background:var(--margin)}
+.scr-conds b{color:#fff}
+.exam-plate .scr-cta{display:inline-block;background:#4CC38A;color:#0B2E21;font-weight:700;font-size:.85rem;border-radius:999px;padding:8px 18px;box-shadow:0 2px 0 color-mix(in srgb, #4CC38A 55%, #000)}
+
+/* предметы */
+.subjects .sheet-wrap{background:var(--sheet);border:1.5px solid var(--ink);border-radius:18px;box-shadow:var(--shadow-sheet);padding:clamp(24px,4vw,48px)}
+.subj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.subj{background:var(--paper);border:1.5px solid var(--grid);border-radius:12px;padding:24px 22px;transition:transform .2s ease-out,border-color .2s ease-out}
+.subj:hover{transform:translateY(-3px);border-color:var(--sage)}
+.subj-ico{width:48px;height:48px;border-radius:10px;background:var(--sage-soft);border:1.5px solid var(--sage);display:grid;place-items:center;margin-bottom:16px}
+.subj-ico svg{width:24px;height:24px;stroke:var(--sage);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.subj h3{font-size:1.15rem;margin-bottom:8px}
+.subj p{color:var(--ink-2);font-size:16.5px}
+.subj .tag{display:inline-block;margin-top:14px;font-size:.8rem;font-weight:700;color:var(--ink-2);border:1.5px dashed var(--grid);background:var(--sheet);border-radius:999px;padding:4px 12px}
+
+/* как проходит занятие */
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;position:relative}
+.how-grid::before{content:"";position:absolute;top:27px;left:14%;right:14%;border-top:2px dashed var(--margin);opacity:.7}
+.how-step{position:relative;text-align:left}
+.how-dot{width:54px;height:54px;border-radius:12px;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-family:var(--font-head);font-weight:700;font-size:1.15rem;margin-bottom:18px;position:relative;z-index:1;box-shadow:0 0 0 7px var(--paper)}
+.how-step h3{font-size:1.2rem;margin-bottom:10px}
+.how-step p{color:var(--ink-2);font-size:17px;max-width:36ch}
+
+/* цифры из тетради */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;text-align:center}
+.stat strong{position:relative;display:inline-block;font-family:var(--font-head);font-weight:700;font-size:clamp(1.7rem,3vw,2.5rem);padding-bottom:8px}
+.stat strong::after{content:"";position:absolute;left:-4%;right:-4%;bottom:0;height:.28em;background:color-mix(in srgb, var(--margin) 35%, transparent);border-radius:999px;transform:rotate(-1.2deg)}
+.stat span{display:block;margin-top:12px;color:var(--ink-2);font-size:16.5px;max-width:30ch;margin-inline:auto}
+
+/* цены */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+.plan{background:var(--sheet);border:1.5px solid var(--ink);border-radius:16px;padding:30px 28px;display:flex;flex-direction:column;box-shadow:var(--shadow-sheet);transition:transform .2s ease-out}
+.plan:hover{transform:translateY(-4px)}
+.plan.pop{background:var(--ink);color:var(--paper);border-color:var(--ink);position:relative}
+.plan.pop .plan-desc,.plan.pop li{color:color-mix(in srgb, var(--paper) 75%, var(--ink))}
+.plan-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%) rotate(-1.5deg);background:var(--margin);color:#fff;font-family:var(--font-hand);font-weight:600;font-size:1.05rem;border-radius:8px;padding:3px 16px;white-space:nowrap}
+.plan h3{font-size:1.2rem;margin-bottom:6px}
+.plan-desc{font-size:16.5px;color:var(--ink-2);margin-bottom:20px}
+.price{display:flex;align-items:baseline;gap:8px;margin-bottom:4px}
+.price b{font-family:var(--font-head);font-weight:700;font-size:2.1rem;letter-spacing:-0.02em;transition:opacity .18s ease-out}
+.price span{color:var(--ink-2);font-size:.9rem}
+.plan.pop .price span{color:color-mix(in srgb, var(--paper) 70%, var(--ink))}
+.bill-note{font-size:.82rem;color:var(--ink-2);min-height:1.3em;margin-bottom:22px}
+.plan.pop .bill-note{color:color-mix(in srgb, var(--paper) 70%, var(--ink))}
+.plan ul{list-style:none;display:grid;gap:11px;margin-bottom:28px;font-size:16.5px;color:var(--ink-2)}
+.plan li{display:flex;gap:10px;align-items:flex-start}
+.plan li svg{width:18px;height:18px;flex:none;margin-top:3px;stroke:var(--sage);stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.plan .btn{margin-top:auto;width:100%}
+.plan.pop .btn-ghost{color:var(--paper);box-shadow:inset 0 0 0 1.5px color-mix(in srgb, var(--paper) 60%, var(--ink))}
+.plan.pop .btn-ghost:hover{box-shadow:inset 0 0 0 1.5px var(--margin);color:var(--margin)}
+.toggle{display:inline-flex;background:var(--sheet);border:1.5px solid var(--ink);border-radius:999px;padding:4px;gap:2px}
+.toggle button{padding:9px 20px;border-radius:999px;font-weight:600;font-size:.92rem;color:var(--ink-2);transition:background .18s ease-out,color .18s ease-out}
+.toggle button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.toggle .save{font-size:.78rem;color:var(--margin);font-weight:700;margin-left:5px}
+
+/* faq */
+.faq-list{max-width:780px;margin:0 auto;display:grid;gap:12px}
+.faq-list details{background:var(--sheet);border:1.5px solid var(--grid);border-radius:14px;transition:border-color .18s ease-out}
+.faq-list details[open]{border-color:var(--ink)}
+.faq-list summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:19px 22px;font-weight:600;font-size:1.02rem}
+.faq-list summary::-webkit-details-marker{display:none}
+.faq-list summary .chev{width:30px;height:30px;border-radius:8px;background:var(--paper);border:1.5px solid var(--grid);display:grid;place-items:center;flex:none;transition:transform .22s ease-out,border-color .22s ease-out}
+.faq-list details[open] summary .chev{transform:rotate(180deg);border-color:var(--margin)}
+.faq-list summary .chev svg{width:16px;height:16px;stroke:var(--ink);stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.faq-list .faq-a{padding:0 22px 20px;color:var(--ink-2);font-size:17px;max-width:62ch}
+
+/* cta */
+.cta{padding:0 0 clamp(60px,8vw,110px)}
+.cta-card{position:relative;background:var(--ink);color:var(--paper);border-radius:18px;padding:clamp(40px,6vw,72px) clamp(24px,5vw,68px);box-shadow:var(--shadow-sheet)}
+.cta-card h2{max-width:18ch;margin-bottom:14px}
+.cta-card p{color:color-mix(in srgb, var(--paper) 78%, var(--ink));max-width:48ch;margin-bottom:30px;font-size:20px}
+.cta-card .hand-note{position:absolute;top:26px;right:34px;font-family:var(--font-hand);font-weight:600;font-size:1.5rem;color:var(--margin);transform:rotate(4deg)}
+@media (max-width:640px){.cta-card .hand-note{display:none}}
+
+/* подвал */
+.footer{border-top:1.5px solid var(--ink);padding:34px 0;background:color-mix(in srgb, var(--paper) 70%, var(--sheet))}
+.footer-in{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.footer .logo-mark{width:40px;height:40px}
+.footer .logo-name{font-size:1.2rem}
+.footer .nav{margin-left:auto}
+.footer small{color:var(--ink-2);font-size:.88rem}
+
+/* ---------- адаптив ---------- */
+@media (max-width:960px){
+  .hero-grid{grid-template-columns:1fr;gap:56px}
+  .personas-grid{grid-template-columns:1fr;max-width:520px;margin:0 auto}
+  .how-grid{grid-template-columns:1fr;gap:32px}
+  .how-grid::before{display:none}
+  .plans{grid-template-columns:1fr;max-width:460px;margin:0 auto}
+  .stats{grid-template-columns:1fr;gap:34px}
+}
+@media (max-width:860px){
+  .nav,.header .btn{display:none}
+  .burger{display:flex}
+}
+@media (max-width:600px){
+  .subj-grid{grid-template-columns:1fr}
+  body{font-size:17px}
+  .demo-card{transform:none}
+  .js .demo-card{animation-name:rise}
+  .footer .nav{display:none}
+  .footer-in{justify-content:center;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container header-in">
+    <a class="logo" href="#top" aria-label="Ментор — на главную">
+      <svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true">
+        <!-- листок тетради с загнутым уголком -->
+        <path d="M13 3h32l14 14v42a4 4 0 0 1-4 4H13a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4z" fill="#FAFCFC" stroke="#1F3A5F" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M45 3l14 14h-11a3 3 0 0 1-3-3V3z" fill="#EEF3F4" stroke="#1F3A5F" stroke-width="3" stroke-linejoin="round"/>
+        <!-- клетка -->
+        <g stroke="#D9E4E8" stroke-width="1.4">
+          <path d="M9 19h42M9 32h42M9 45h42M22 8v48M36 8v48M50 14v42"/>
+        </g>
+        <!-- линия полей -->
+        <path d="M16 5v52" stroke="#C9777A" stroke-width="3" stroke-linecap="round"/>
+        <!-- галочка учителя -->
+        <path d="M25 36l7 7 15-19" fill="none" stroke="#4F7F6E" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="logo-name">Ментор<span class="logo-tag">на полях твоей тетради</span></span>
+    </a>
+    <nav class="nav" aria-label="Основная навигация">
+      <a href="#personas">Характеры</a>
+      <a href="#subjects">Предметы</a>
+      <a href="#how">Как это работает</a>
+      <a href="#pricing">Цены</a>
+      <a href="#faq">Вопросы</a>
+    </nav>
+    <a class="btn btn-primary btn-sm" href="#demo">Попробовать бесплатно</a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="mobileMenu" aria-label="Открыть меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="menu-backdrop" id="menuBackdrop"></div>
+<nav class="mobile-menu" id="mobileMenu" aria-label="Мобильная навигация">
+  <a href="#personas">Характеры</a>
+  <a href="#subjects">Предметы</a>
+  <a href="#how">Как это работает</a>
+  <a href="#pricing">Цены</a>
+  <a href="#faq">Вопросы</a>
+  <a href="#demo" class="btn btn-primary" style="margin-top:10px">Попробовать бесплатно</a>
+</nav>
+
+<main id="top">
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="margin-rail" aria-hidden="true">
+      <span class="margin-note" style="top:12%">не зубри —<br>понимай!</span>
+      <span class="margin-note" style="top:52%"><em>спроси<br>«почему?»</em></span>
+    </div>
+    <div class="container hero-grid">
+      <div class="hero-in">
+        <span class="eyebrow"><i></i>ИИ-репетитор для 7–11 класса</span>
+        <h1>Репетитор, который <span class="u">объясняет<svg viewBox="0 0 220 14" preserveAspectRatio="none" aria-hidden="true"><path d="M4 10 C 40 4, 80 4, 112 8 S 180 12, 216 5"/></svg></span>, а не выдаёт готовый ответ</h1>
+        <p class="lead">Ментор пишет подсказки «на полях» вашей тетради: разбирает задачу по шагам, подстраивается под ваш уровень и доводит до результата — от контрольной до ЕГЭ.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#demo">Начать бесплатно</a>
+          <a class="btn btn-ghost" href="#pricing">Смотреть цены</a>
+        </div>
+        <div class="chips">
+          <span class="chip">ЕГЭ и ОГЭ</span>
+          <span class="chip">Первый урок — 0 ₽</span>
+          <span class="chip">Без банковской карты</span>
+        </div>
+      </div>
+
+      <!-- демо-чат -->
+      <div class="demo-card" id="demo">
+        <div class="sticker" aria-hidden="true">
+          <figure>
+            <img src="./img/sova.png" alt="" width="280" height="215">
+            <figcaption>привет! я Ментор</figcaption>
+          </figure>
+        </div>
+        <div class="demo-head">
+          <div class="demo-ava" aria-hidden="true">
+            <svg viewBox="0 0 64 64"><path d="M13 3h32l14 14v42a4 4 0 0 1-4 4H13a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4z" fill="#FAFCFC" stroke="#1F3A5F" stroke-width="4" stroke-linejoin="round"/><path d="M16 6v50" stroke="#C9777A" stroke-width="4" stroke-linecap="round"/><path d="M25 36l7 7 15-19" fill="none" stroke="#4F7F6E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <strong>Ментор</strong>
+            <small><i></i>онлайн · демо-урок</small>
+          </div>
+        </div>
+        <div class="demo-body" id="chatBody" aria-live="polite"></div>
+        <div class="demo-suggest" id="suggestRow">
+          <button class="suggest" data-q="Реши уравнение: 2x + 5 = 13">Математика: 2x + 5 = 13</button>
+          <button class="suggest" data-q="Что такое энтропия?">Физика: что такое энтропия?</button>
+          <button class="suggest" data-q="Что такое моль?">Химия: что такое моль?</button>
+          <button class="suggest" data-q="Что выведет код print(2**10)?">Информатика: print(2**10)</button>
+        </div>
+        <form class="demo-input" id="chatForm" novalidate>
+          <input type="text" id="chatInput" placeholder="Спроси что-нибудь…" autocomplete="off" maxlength="200" aria-label="Ваш вопрос Ментору">
+          <button type="submit" aria-label="Отправить вопрос">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12 20 4l-6 8 6 8z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>
+          </button>
+        </form>
+        <p class="demo-hint" id="chatHint" role="status"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ДВА НАСТРОЕНИЯ ===== -->
+  <section class="section" id="personas">
+    <div class="margin-rail" aria-hidden="true">
+      <span class="margin-note" style="top:30%"><em>выбери<br>своего</em></span>
+    </div>
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>У Ментора два настроения</h2>
+          <p class="lead">Один и тот же репетитор, но в двух обличиях — переключаются в один клик прямо на занятии.</p>
+        </div>
+      </div>
+      <div class="personas-grid">
+        <article class="persona">
+          <div class="phones" role="img" aria-label="Три задачи напарника на экранах телефонов: объясняет тему, ищет ошибку, закрепляет практикой">
+            <div class="phone"><span class="ph-camera"></span><div class="phone-screen">
+              <p class="scr-tag">задача 1</p>
+              <p class="scr-main">Объясню тему простыми словами</p>
+              <p class="scr-sub">от того, что ты уже знаешь</p>
+              <p class="scr-hand">разберём по шагам</p>
+            </div></div>
+            <div class="phone"><span class="ph-camera"></span><div class="phone-screen">
+              <p class="scr-tag">задача 2</p>
+              <p class="scr-main">Найду ошибку в решении</p>
+              <p class="scr-sub">покажу, на каком шаге сбился</p>
+              <p class="scr-hand">и как исправить</p>
+            </div></div>
+            <div class="phone"><span class="ph-camera"></span><div class="phone-screen">
+              <p class="scr-tag">задача 3</p>
+              <p class="scr-main">Закреплю на практике</p>
+              <p class="scr-sub">3–5 похожих задач</p>
+              <p class="scr-hand">пока не получится сам</p>
+            </div></div>
+          </div>
+          <h3>Напарник</h3>
+          <p>Объясняет терпеливо и от простого к сложному. Подскажет, где ошибка, похвалит за верный ход и пошутит, когда трудно.</p>
+          <span class="hand">спроси его про параболу →</span>
+        </article>
+        <article class="persona">
+          <div class="laptop">
+            <img src="./img/robot-exam.png?v=6" alt="Экзаменатор — Робот на экране ноутбука" width="296" height="215">
+            <div class="laptop-word" role="img" aria-label="Экзамен">ЭКЗАМЕН</div>
+          </div>
+          <div class="exam-plate">
+            <p class="scr-title">Пробник в формате ЕГЭ</p>
+            <ul class="scr-conds">
+              <li><b>Таймер</b> — 3 часа 55 минут</li>
+              <li><b>Проверка</b> — по критериям ФИПИ</li>
+              <li><b>Подсказок нет</b> — как на экзамене</li>
+            </ul>
+            <p class="scr-cta">завершить и сдать</p>
+          </div>
+          <h3>Экзаменатор</h3>
+          <p>Гоняет по формату настоящего ЕГЭ: таймер, критерии проверки, ни одного снисходительного балла. Как на экзамене — только заранее.</p>
+          <span class="hand">пробник — каждую субботу</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ПРЕДМЕТЫ ===== -->
+  <section class="section" id="subjects" style="padding-top:0">
+    <div class="margin-rail" aria-hidden="true">
+      <span class="margin-note" style="top:24%">4 предмета —<br>и это точно</span>
+    </div>
+    <div class="container">
+      <div class="sheet-wrap">
+        <div class="section-head">
+          <div>
+            <h2>Предметы, с которыми мы справляемся</h2>
+            <p class="lead">В каждом предмете Ментор знает школьную программу и требования экзаменов — не шире, но глубже.</p>
+          </div>
+        </div>
+        <div class="subj-grid">
+          <article class="subj">
+            <div class="subj-ico"><svg viewBox="0 0 24 24"><path d="M3 13h4l3-8 4 14 3-9h4"/></svg></div>
+            <h3>Математика</h3>
+            <p>Алгебра, геометрия, тригонометрия и задачи с параметром — с проверкой каждого шага.</p>
+            <span class="tag">214 тем</span>
+          </article>
+          <article class="subj">
+            <div class="subj-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.6"/><ellipse cx="12" cy="12" rx="9.2" ry="3.6"/><ellipse cx="12" cy="12" rx="9.2" ry="3.6" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9.2" ry="3.6" transform="rotate(120 12 12)"/></svg></div>
+            <h3>Физика</h3>
+            <p>Кинематика, термодинамика, электричество — с опытами на пальцах и реальными примерами.</p>
+            <span class="tag">168 тем</span>
+          </article>
+          <article class="subj">
+            <div class="subj-ico"><svg viewBox="0 0 24 24"><path d="M9.5 3h5M10.5 3v5.2L5.2 17.5A2 2 0 0 0 7 20.5h10a2 2 0 0 0 1.8-3L13.5 8.2V3"/><path d="M8 14.5h8"/></svg></div>
+            <h3>Химия</h3>
+            <p>Органика, неорганика и расчёты по уравнениям — без зубрёжки, через понимание.</p>
+            <span class="tag">142 темы</span>
+          </article>
+          <article class="subj">
+            <div class="subj-ico"><svg viewBox="0 0 24 24"><path d="M8 8l-4.5 4L8 16M16 8l4.5 4L16 16M13.5 5l-3 14"/></svg></div>
+            <h3>Информатика</h3>
+            <p>Алгоритмы, Python и задачи 27-го задания ЕГЭ — с разбором кода строка за строкой.</p>
+            <span class="tag">96 тем</span>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== КАК ПРОХОДИТ ЗАНЯТИЕ ===== -->
+  <section class="section" id="how">
+    <div class="margin-rail" aria-hidden="true">
+      <span class="margin-note" style="top:38%"><em>всего 3<br>шага</em></span>
+    </div>
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Как проходит занятие</h2>
+          <p class="lead">Не «ответ в один клик», а короткий диалог, после которого тема реально понятна.</p>
+        </div>
+      </div>
+      <div class="how-grid">
+        <div class="how-step">
+          <div class="how-dot">1</div>
+          <h3>Задаёте вопрос</h3>
+          <p>Фотографируете задачу или пишете текстом — хоть «не понимаю тему вообще», это нормально.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-dot">2</div>
+          <h3>Разбираете по шагам</h3>
+          <p>Ментор ведёт от того, что вы знаете, к решению. Пропустили базу — вернётся и объяснит её.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-dot">3</div>
+          <h3>Закрепляете на практике</h3>
+          <p>Сразу после разбора — 3–5 похожих задач. Пока не решите уверенно, тема не считается пройденной.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ЦИФРЫ ===== -->
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="stats">
+        <div class="stat"><strong>12 400+</strong><span>задач разобрано со школьниками за этот учебный год</span></div>
+        <div class="stat"><strong>4,9 из 5</strong><span>средняя оценка объяснений по отзывам учеников</span></div>
+        <div class="stat"><strong>+15 баллов</strong><span>в среднем прибавляют к результату ЕГЭ после 3 месяцев занятий</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ЦЕНЫ ===== -->
+  <section class="section" id="pricing" style="padding-top:0">
+    <div class="margin-rail" aria-hidden="true">
+      <span class="margin-note" style="top:30%"><em>начни<br>с нуля</em></span>
+    </div>
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Простые цены</h2>
+          <p class="lead">Начните бесплатно, переходите на тариф, когда поймёте, что это работает.</p>
+        </div>
+        <div class="toggle" role="group" aria-label="Период оплаты">
+          <button type="button" id="tMonth" aria-pressed="true">Месяц</button>
+          <button type="button" id="tYear" aria-pressed="false">Год<span class="save">−20%</span></button>
+        </div>
+      </div>
+      <div class="plans">
+        <article class="plan">
+          <h3>Бесплатно</h3>
+          <p class="plan-desc">Чтобы попробовать и понять, ваше это или нет</p>
+          <div class="price"><b>0 ₽</b><span>/ навсегда</span></div>
+          <p class="bill-note">Карта не нужна</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>3 вопроса каждый день</li>
+            <li><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>Пошаговые объяснения</li>
+            <li><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>Один предмет на выбор</li>
+          </ul>
+          <button class="btn btn-ghost plan-cta" data-plan="Бесплатно">Начать</button>
+        </article>
+        <article class="plan pop">
+          <span class="plan-badge">выбирают чаще всего</span>
+          <h3>Школьник</h3>
+          <p class="plan-desc">Для регулярной учёбы и подготовки к контрольным</p>
+          <div class="price"><b data-m="990 ₽" data-y="790 ₽">990 ₽</b><span>/ месяц</span></div>
+          <p class="bill-note" data-m="помесячная оплата, отмена в любой момент" data-y="при оплате за год — 9 480 ₽">помесячная оплата, отмена в любой момент</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>Безлимитные вопросы</li>
+            <li><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>Все 4 предмета</li>
+            <li><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>Тренажёр закрепления</li>
+            <li><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>История вопросов и прогресс</li>
+          </ul>
+          <button class="btn btn-primary plan-cta" data-plan="Школьник">Начать</button>
+        </article>
+        <article class="plan">
+          <h3>Экзамен</h3>
+          <p class="plan-desc">Максимум к ЕГЭ, ОГЭ и олимпиадам</p>
+          <div class="price"><b data-m="1 990 ₽" data-y="1 590 ₽">1 990 ₽</b><span>/ месяц</span></div>
+          <p class="bill-note" data-m="помесячная оплата, отмена в любой момент" data-y="при оплате за год — 19 080 ₽">помесячная оплата, отмена в любой момент</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>Всё из тарифа «Школьник»</li>
+            <li><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>Генератор вариантов ЕГЭ</li>
+            <li><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>Разбор ошибок из пробников</li>
+            <li><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>Приоритетная поддержка</li>
+          </ul>
+          <button class="btn btn-ghost plan-cta" data-plan="Экзамен">Начать</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="section" id="faq" style="padding-top:0">
+    <div class="container">
+      <div class="section-head" style="justify-content:center;text-align:center">
+        <div>
+          <h2>Частые вопросы</h2>
+        </div>
+      </div>
+      <div class="faq-list">
+        <details>
+          <summary>Это не списывание?<span class="chev"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <p class="faq-a">Нет. Ментор специально не выдаёт готовый ответ сразу: сначала объясняет теорию, разбирает аналогичный пример, а затем предлагает решить вашу задачу самостоятельно и проверяет каждый шаг. Цель — чтобы вы справлялись без помощи.</p>
+        </details>
+        <details>
+          <summary>Нужна ли банковская карта для пробного периода?<span class="chev"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <p class="faq-a">Нет. Бесплатный тариф не привязывается к карте и не заканчивается — 3 вопроса в день доступны всегда. Карта понадобится только если вы сами решите перейти на платный тариф.</p>
+        </details>
+        <details>
+          <summary>Поможет ли подготовиться к ЕГЭ за полгода?<span class="chev"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <p class="faq-a">Да. Ментор строит план от вашего текущего уровня: диагностический вариант показывает пробелы, дальше — короткие ежедневные занятия, генератор вариантов и разбор ошибок. Наши ученики в среднем прибавляют 15 баллов за три месяца регулярной работы.</p>
+        </details>
+        <details>
+          <summary>Можно ли отменить подписку?<span class="chev"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <p class="faq-a">В любой момент, в два клика в личном кабинете. Доступ сохранится до конца оплаченного периода, деньги за неиспользованные месяцы при годовой оплате возвращаем автоматически.</p>
+        </details>
+        <details>
+          <summary>Работает ли на телефоне?<span class="chev"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <p class="faq-a">Да, Ментор работает в браузере на любом устройстве — телефоне, планшете или компьютере. Ничего устанавливать не нужно.</p>
+        </details>
+        <details>
+          <summary>Как ИИ справляется с новыми школьными программами?<span class="chev"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <p class="faq-a">База знаний Ментора обновляется каждый месяц по официальным кодификаторам ФИПИ и учебникам, по которым вы учитесь. Если заметили несоответствие — сообщите, разбор этой темы перепроверим в течение суток.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta">
+    <div class="container">
+      <div class="cta-card">
+        <span class="hand-note" aria-hidden="true">первый вопрос — бесплатно!</span>
+        <h2>Спросите Ментора прямо сейчас</h2>
+        <p>Никакой карты и регистрации. Задайте задачу, которая сегодня не даётся, — и посмотрите, как легко она решается по шагам.</p>
+        <a class="btn btn-primary" href="#demo">Задать вопрос</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-in">
+    <a class="logo" href="#top" aria-label="Ментор — наверх">
+      <svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M13 3h32l14 14v42a4 4 0 0 1-4 4H13a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4z" fill="#FAFCFC" stroke="#1F3A5F" stroke-width="3.5" stroke-linejoin="round"/>
+        <path d="M45 3l14 14h-11a3 3 0 0 1-3-3V3z" fill="#EEF3F4" stroke="#1F3A5F" stroke-width="3.5" stroke-linejoin="round"/>
+        <path d="M16 5v52" stroke="#C9777A" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M25 36l7 7 15-19" fill="none" stroke="#4F7F6E" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="logo-name">Ментор</span>
+    </a>
+    <small>ИИ-репетитор для школьников · 2026</small>
+    <nav class="nav" aria-label="Навигация в подвале">
+      <a href="#subjects">Предметы</a>
+      <a href="#pricing">Цены</a>
+      <a href="#faq">Вопросы</a>
+      <a href="mailto:privet@mentor.ru">privet@mentor.ru</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+
+/* ---------- мобильное меню ---------- */
+const burger=document.getElementById('burger');
+const menu=document.getElementById('mobileMenu');
+const backdrop=document.getElementById('menuBackdrop');
+function setMenu(open){
+  burger.setAttribute('aria-expanded',open);
+  burger.setAttribute('aria-label',open?'Закрыть меню':'Открыть меню');
+  menu.classList.toggle('open',open);
+  backdrop.classList.toggle('show',open);
+  document.body.style.overflow=open?'hidden':'';
+}
+burger.addEventListener('click',()=>setMenu(burger.getAttribute('aria-expanded')!=='true'));
+backdrop.addEventListener('click',()=>setMenu(false));
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+addEventListener('keydown',e=>{ if(e.key==='Escape') setMenu(false); });
+
+/* ---------- демо-чат ---------- */
+const chatBody=document.getElementById('chatBody');
+const chatForm=document.getElementById('chatForm');
+const chatInput=document.getElementById('chatInput');
+const chatHint=document.getElementById('chatHint');
+const suggestRow=document.getElementById('suggestRow');
+let busy=false;
+
+const REPLIES=[
+ {k:['2x','уравн','x +','реши'],steps:[
+   'Перенесём 5 в правую часть: 2x = 13 − 5.',
+   'Получаем: 2x = 8.',
+   'Разделим обе части на 2: x = 4.',
+   'Проверка: 2·4 + 5 = 13. Всё сошлось!'],tail:'Видишь логику? Можешь сам решить 3x − 4 = 11 — напиши ответ.'},
+ {k:['энтроп','термодинам','второй закон'],steps:[
+   'Энтропия — мера беспорядка в системе.',
+   'Лёд в тёплом чае тает сам — беспорядок растёт, энтропия увеличивается.',
+   'Обратное (чай сам превращается в лёд) невозможно без затраты энергии.',
+   'Формула: ΔS = Q / T — прирост энтропии равен теплу, делённому на температуру.'],tail:'Это основа второго закона термодинамики. Хочешь, разберу его на примере мотора?'},
+ {k:['моль','авогадр','количество веществ'],steps:[
+   'Моль — единица количества вещества: как «дюжина», только для частиц.',
+   '1 моль = 6,02·10²³ частиц — это число Авогадро.',
+   'Пример: в 18 граммах воды ровно 1 моль молекул H₂O.',
+   'По молям считают реакции: коэффициенты в уравнении — это моли.'],tail:'Пришлите задачу на моли — решим вместе по шагам.'},
+ {k:['print','код','python','выведет','программ'],steps:[
+   'В Python ** означает возведение в степень.',
+   'Значит 2**10 — это 2 в 10-й степени.',
+   'Считаем: 2·2·2·2·2·2·2·2·2·2 = 1024.',
+   'На экран выведется число 1024.'],tail:'На ЕГЭ по информатике такое встречается в задачах на Python — могу разобрать посложнее.'},
+ {k:['цен','стоим','тариф','руб','сколько стоит','подписк'],steps:[
+   'Бесплатный тариф — 0 ₽: 3 вопроса в день, без карты.',
+   '«Школьник» — 990 ₽/мес: безлимит, все предметы, тренажёр.',
+   '«Экзамен» — 1 990 ₽/мес: плюс генератор вариантов ЕГЭ и разбор ошибок.',
+   'При оплате за год — скидка 20%. Отмена в любой момент.'],tail:'Полная таблица — в разделе «Цены» чуть ниже.'},
+ {k:['егэ','огэ','экзамен','поступ'],steps:[
+   'Начнём с диагностики: решите короткий вариант, я найду пробелы.',
+   'Дальше — план на каждый день: 20–30 минут, без авралов.',
+   'Каждую неделю — пробник в формате экзамена и разбор ошибок.',
+   'Ученики в среднем прибавляют 15 баллов за 3 месяца такой работы.'],tail:'Могу составить план под вашу дату экзамена. Когда сдаёте?'}
+];
+const FALLBACK={steps:[
+  'Хороший вопрос. Сначала определим, что именно дано и что нужно найти.',
+  'Затем вспомним главное правило этой темы и запишем его.',
+  'Подставим данные и решим по шагам, проверив результат.',
+  'Если на каком-то шаге споткнёмся — вернёмся и разберём подробнее.'],
+ tail:'Напишите тему подробнее (например, «производная» или «падежи»), и я разложу её на пальцах.'};
+
+function el(html){const t=document.createElement('template');t.innerHTML=html.trim();return t.content.firstElementChild;}
+function scrollChat(){chatBody.scrollTop=chatBody.scrollHeight;}
+function bubble(cls){const b=el(`<div class="msg ${cls}"></div>`);chatBody.appendChild(b);scrollChat();return b;}
+function tutorSay(reply){
+  busy=true;
+  const t=el('<div class="msg msg-tutor typing" aria-label="Ментор печатает"><i></i><i></i><i></i></div>');
+  chatBody.appendChild(t);scrollChat();
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  setTimeout(()=>{
+    t.remove();
+    const b=bubble('msg-tutor');
+    const lis=reply.steps.map(s=>`<li class="${reduced?'show':''}">${s}</li>`).join('');
+    b.innerHTML=`<p>Разбираем по шагам:</p><ol class="msg-steps">${lis}</ol><p>${reply.tail}</p>`;
+    scrollChat();
+    b.querySelectorAll('.msg-steps li').forEach((li,i)=>setTimeout(()=>li.classList.add('show'),reduced?0:220*i+120));
+    busy=false;
+  },reduced?250:950);
+}
+function send(text){
+  const clean=text.trim();
+  if(!clean){
+    chatHint.textContent='Напишите вопрос или выберите тему ниже.';
+    chatInput.classList.remove('shake');void chatInput.offsetWidth;chatInput.classList.add('shake');
+    chatInput.focus();return;
+  }
+  chatHint.textContent='';
+  bubble('msg-user').textContent=clean;
+  const low=clean.toLowerCase();
+  const hit=REPLIES.find(r=>r.k.some(k=>low.includes(k)));
+  tutorSay(hit||FALLBACK);
+}
+suggestRow.addEventListener('click',e=>{
+  const b=e.target.closest('.suggest');if(!b||busy)return;
+  send(b.dataset.q);
+});
+chatForm.addEventListener('submit',e=>{
+  e.preventDefault();if(busy)return;
+  send(chatInput.value);chatInput.value='';
+});
+document.querySelectorAll('.plan-cta').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    if(busy){document.getElementById('demo').scrollIntoView({behavior:'smooth'});return;}
+    send(`Хочу тариф «${btn.dataset.plan}»`);
+    document.getElementById('demo').scrollIntoView({behavior:'smooth'});
+  });
+});
+
+/* приветствие */
+setTimeout(()=>tutorSay({steps:['Привет! Я Ментор — пишу подсказки на полях твоей тетради.','Задай вопрос сами или выбери тему ниже — разберём по шагам.'],tail:'Четыре предмета: математика, физика, химия и информатика.'}),600);
+
+/* ---------- переключатель цен ---------- */
+const tMonth=document.getElementById('tMonth');
+const tYear=document.getElementById('tYear');
+function setPeriod(year){
+  tMonth.setAttribute('aria-pressed',String(!year));
+  tYear.setAttribute('aria-pressed',String(year));
+  document.querySelectorAll('.price b[data-m]').forEach(b=>{
+    b.style.opacity=0;
+    setTimeout(()=>{b.textContent=year?b.dataset.y:b.dataset.m;b.style.opacity=1;},140);
+  });
+  document.querySelectorAll('.bill-note[data-m]').forEach(n=>{n.textContent=year?n.dataset.y:n.dataset.m;});
+}
+tMonth.addEventListener('click',()=>setPeriod(false));
+tYear.addEventListener('click',()=>setPeriod(true));
+</script>
+</body>
+</html>
