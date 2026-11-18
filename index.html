@@ -96,11 +96,18 @@ h2{font-size:clamp(1.6rem,3vw,2.4rem)}
 .nav a:hover{background:var(--sheet);color:var(--ink);box-shadow:inset 0 0 0 1px var(--grid)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;border-radius:999px;padding:13px 24px;transition:transform .18s ease-out,background .18s ease-out,box-shadow .18s ease-out;white-space:nowrap}
 .btn:active{transform:scale(.97)}
-.btn-primary{background:var(--sage);color:#fff;box-shadow:3px 3px 0 color-mix(in srgb, var(--ink) 22%, transparent)}
-.btn-primary:hover{background:var(--sage-2)}
+.btn-primary{background:var(--sage);color:#fff;box-shadow:3px 3px 0 color-mix(in srgb, var(--ink) 22%, transparent),0 0 16px color-mix(in srgb, var(--sage) 45%, transparent)}
+.btn-primary:hover{background:var(--sage-2);filter:brightness(1.08);box-shadow:3px 3px 0 color-mix(in srgb, var(--ink) 22%, transparent),0 0 30px color-mix(in srgb, var(--sage) 70%, transparent)}
 .btn-ghost{background:var(--sheet);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
-.btn-ghost:hover{box-shadow:inset 0 0 0 1.5px var(--margin);color:var(--margin)}
+.btn-ghost:hover{box-shadow:inset 0 0 0 1.5px var(--margin),0 0 18px color-mix(in srgb, var(--margin) 35%, transparent);color:var(--margin);filter:brightness(1.06)}
 .btn-sm{padding:10px 20px;font-size:.95rem}
+.btn,.demo-input button,.suggest,.scr-cta{position:relative;overflow:hidden}
+.ripple{position:absolute;border-radius:50%;transform:scale(0);opacity:.9;animation:ripple .6s ease-out forwards;background:radial-gradient(circle,rgba(255,255,255,.6),rgba(255,255,255,0) 65%);pointer-events:none}
+@keyframes ripple{to{transform:scale(3);opacity:0}}
+.suggest:hover{box-shadow:0 0 12px color-mix(in srgb, var(--margin) 30%, transparent)}
+.demo-input button{box-shadow:0 0 12px color-mix(in srgb, var(--sage) 40%, transparent)}
+.demo-input button:hover{box-shadow:0 0 22px color-mix(in srgb, var(--sage) 65%, transparent);filter:brightness(1.1)}
+.scr-cta{box-shadow:0 2px 0 color-mix(in srgb, #4CC38A 55%, #000),0 0 14px color-mix(in srgb, #4CC38A 45%, transparent)}
 .burger{display:none;width:44px;height:44px;border-radius:12px;align-items:center;justify-content:center;flex-direction:column;gap:5px}
 .burger span{display:block;width:20px;height:2px;background:var(--ink);border-radius:2px;transition:transform .2s ease-out,opacity .2s ease-out}
 .burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -214,7 +221,7 @@ h2{font-size:clamp(1.6rem,3vw,2.4rem)}
 .scr-conds li{font-size:.85rem;line-height:1.35;padding-left:16px;position:relative;color:rgba(255,255,255,.88);text-align:left}
 .scr-conds li::before{content:"";position:absolute;left:0;top:6px;width:7px;height:7px;border-radius:2px;background:var(--margin)}
 .scr-conds b{color:#fff}
-.exam-plate .scr-cta{display:inline-block;background:#4CC38A;color:#0B2E21;font-weight:700;font-size:.85rem;border-radius:999px;padding:8px 18px;box-shadow:0 2px 0 color-mix(in srgb, #4CC38A 55%, #000)}
+.exam-plate .scr-cta{display:inline-block;background:#4CC38A;color:#0B2E21;font-weight:700;font-size:.85rem;border-radius:999px;padding:8px 18px;box-shadow:0 2px 0 color-mix(in srgb, #4CC38A 55%, #000),0 0 14px color-mix(in srgb, #4CC38A 45%, transparent)}
 
 /* предметы */
 .subjects .sheet-wrap{background:var(--sheet);border:1.5px solid var(--ink);border-radius:18px;box-shadow:var(--shadow-sheet);padding:clamp(24px,4vw,48px)}
@@ -807,6 +814,21 @@ document.querySelectorAll('.plan-cta').forEach(btn=>{
     send(`Хочу тариф «${btn.dataset.plan}»`);
     document.getElementById('demo').scrollIntoView({behavior:'smooth'});
   });
+});
+
+/* волна по кнопкам */
+document.addEventListener('click',e=>{
+  const t=e.target.closest('.btn,.demo-input button,.suggest,.scr-cta,.toggle button');
+  if(!t)return;
+  const r=t.getBoundingClientRect();
+  const d=Math.max(r.width,r.height)*1.2;
+  const s=document.createElement('span');
+  s.className='ripple';
+  s.style.width=s.style.height=d+'px';
+  s.style.left=(e.clientX-r.left-d/2)+'px';
+  s.style.top=(e.clientY-r.top-d/2)+'px';
+  t.appendChild(s);
+  setTimeout(()=>s.remove(),650);
 });
 
 /* приветствие */
